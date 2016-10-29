@@ -27,14 +27,6 @@ APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
 
 def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
@@ -62,24 +54,18 @@ def checkIfKeyPresent(event, key):
         return True
 
 
-def main():
-    """Shows basic usage of the Google Calendar API.
-
-    Creates a Google Calendar API service object and outputs a list of the next
-    10 events on the user's calendar.
-    """
+def getEventsForUser():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-    #dayLater = 
-    print(now)
-    print(datetime.datetime.now())
-    print('Getting the upcoming 20 events')
+    now = datetime.datetime.utcnow().isoformat() + 'Z'
+    #print(now)
+    #print(datetime.datetime.now())
+    #print('Getting the upcoming 20 events')
     eventsResult = service.events().list(calendarId='primary', timeMin=now, maxResults=20, singleEvents=True, orderBy='startTime').execute()
     events = eventsResult.get('items', [])
-    #print(events)
+    eventList = []
     if not events:
         print('No upcoming events found.')
     for event in events:
@@ -92,22 +78,23 @@ def main():
             coordinates = geolocator.geocode(location)
             geocoordinates = [coordinates.latitude, coordinates.longitude]
 
+        tagList = []
+
         description = None
         if checkIfKeyPresent(event, 'description'):
             description = event['description']
-            Tagger.getTags(description)
+            tagList +=Tagger.getTags(description)
 
         summary = event['summary']
-        Tagger.getTags(summary)
+        tagList += Tagger.getTags(summary)
 
-        event = Event(start, summary, description, geocoordinates)
+        eventObj = Event(start, summary, description, geocoordinates, list(set(tagList)))
+        eventList.append(eventObj)
+        #event.printContents()
+    return eventList
 
-        event.printContents()
-
-        # if checkIfKeyPresent(event, 'description'):
-        #     print(start, event['summary'], event['description'], )
-        # else :
-        #     print(start, event['summary'])
+def main():
+    getEventsForUser()
 
 if __name__ == '__main__':
     main()  

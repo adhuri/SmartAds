@@ -5,8 +5,10 @@ class Tagger:
 	
 	@staticmethod
 	def getTags(stringToTag):
+		tagList = []
 		words = stringToTag.split()
 		for word in words:
 			if word in Tagger.TAGS_MAP :
-				print(Tagger.TAGS_MAP[word])
+				tagList += Tagger.TAGS_MAP[word]
+		return tagList
 
