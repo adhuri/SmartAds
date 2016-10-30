@@ -63,9 +63,16 @@ def func_main(user,lat,longi,time1):
 	print js
         if(bool(data)):
             if('Tuna' in data['OfferName']):
-		msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+work[0]+','+work[1]+'/'+foodlion[0]+','+foodlion[1]
+		start_lat=str(work[0])
+		start_longi=str(work[1])
+		end_lat=str(foodlion[0])
+		end_longi=str(foodlion[1])
             elif('Gatorade' in data['OfferName']):
-	    	msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+gym[0]+','+gym[1]+'/'+convenient[0]+','+convenient[1]
+	    	start_lat=str(gym[0])
+                start_longi=str(gym[1])
+                end_lat=str(convenient[0])
+                end_longi=str(convenient[1])
+	    msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+start_lat+','+start_longi+'/'+end_lat+','+end_longi
 	    send_sms(msg)
 	return resp
 
