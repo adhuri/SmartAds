@@ -6,16 +6,12 @@ app = Flask(__name__)
 @app.route('/<user>',methods=['POST'])
 def func_main(user):
 	print str(request)
-	#print request.description
-	print request.files
 	file = request.files['uploadedfile']
-	file.read() 
-     	if file:
-        	filename = file.filename
-       		file.save(os.path.join("/home/ubuntu/HackNC_ContextAds/backend_controller",filename))
+     	print file
+	if file:
+       		file.save("/home/ubuntu/HackNC_ContextAds/backend_controller/temp.png")
         
 
-#	print request.form
 	return "<p>cool</p>"
 
 if __name__ == '__main__':
