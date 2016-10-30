@@ -3,7 +3,7 @@ Who has not installed AdBlock extensions? Ads are synonymous to annoyance and ir
 
 We propose a solution which:
 1. Provides useful ads to users without annoying them.
-2. proposes very less or minimal detour from their regular activities.
+2. Proposes very less or minimal detour from their regular activities.
 3. Enterprise - Providing customized offers to keep loyal customers happy.
 
 Smart Ads are crucial for customers - enterprise ecosystem.
@@ -12,10 +12,10 @@ Smart Ads are crucial for customers - enterprise ecosystem.
 Presenting Smart Ads - which provides advertisement to the customers based on
 
 ***Bills OCR Analysis*** - User scans and uploads bills via phone app and analysis is done on it to gain insights into user preferences for potential offers.
-Google Calendar Sync - Uses Calendar events to decide ad notifications. For ex: If the user is going to a birthday party for the weekend, ads related to offers on wine or gifts can be shown on the route.
+***Google Calendar Sync*** - Uses Calendar events to decide ad notifications. For ex: If the user is going to a birthday party for the weekend, ads related to offers on wine or gifts can be shown on the route.
 ***Location based:*** Uses the current location of the user and calendar event to notify ads to users.
 
-## How I built it
+## How we built it
 
 1. *Android app* - Used for scan and upload of purchase recipts, and periodically sends location to our cloud endpoint.
 2. *AWS Server* - All OCR analysis done here, from getting text from scanned image, to categorizing purchases, and learning user preferences. Calendar events for the user are synced to get upcoming event details. REST endpoint is provided using Flask, to get potential offers from partner enterprises based on location. Matched result offers are pushed by SMS to user via Twilio.
@@ -37,16 +37,16 @@ Google Calendar Sync - Uses Calendar events to decide ad notifications. For ex: 
 4. Utkarsh Verma  - OCR , Image Transformation and JS Application
 
 
-## Challenges I ran into
-1. Android application crash due to OS terminating location listenerService indeterminately while running in background- resolved using startForeground(). 
-2. REST API providing blank output due to result of incorrect POST methods - resolved using debugging various scenarios.
-3. Demonstrating the back end code needed some discussions and overhead - resolved using creating a javascript application to depict the backend functionality.
+## Challenges we ran into
+1. Android application crash due to OS terminating location listenerService indeterminately while running in background- resolved using startForeground().
+2. REST API providing blank response because Amazon AWS was not responding due to large number of requests from HackNC users. It was resolved by connecting to internet using cellular network.
+3. Demonstrating the back end code needed some discussions and overhead - resolved using creating a javascript application to depict the back-end functionality.
 
 ## Accomplishments that I'm proud of
 1. Worked on various platforms to have complete exposure to the frameworks and technologies used.
 2. Choosing team members who were motivated and provided constructive feedback on the decisions taken during the 24 hours of coding.
 
-## What I learned
+## What we learned
 1. Perseverance - bugs everywhere, don't give up - fix'em all
 2. Android - quick refresher for me after 4 years.
 3. Flask - REST endpoints using Flask.
