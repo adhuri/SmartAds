@@ -4,7 +4,7 @@ import json
 import datetime
 
 from twilio.rest import TwilioRestClient
-from jinja2 import Environment, FileSystemLoader 
+from jinja2 import Environment, FileSystemLoader
 app = Flask(__name__)
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +33,7 @@ def get_offers(user,lat,longi,time1):
             if(time_hr>=17 and time_hr<=20):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
-           	mydict['OfferDetails']="50% off at Foodlion"
+           	    mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
     elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
@@ -50,7 +50,7 @@ def get_offers(user,lat,longi,time1):
 def func_root():
 	j2_env = Environment(loader=FileSystemLoader(THIS_DIR),trim_blocks=True)
 	return j2_env.get_template('maps.html').render(title="Context based Advertising")
-	
+
 
 #Main function that handles the post request
 @app.route('/<user>/<lat>/<longi>/<time1>',methods=['POST'])
@@ -58,15 +58,27 @@ def func_main(user,lat,longi,time1):
 	data=get_offers(user,lat,longi,time1)
 
 	js = json.dumps(data)
-    	resp = Response(js, status=200, mimetype='application/json')
-    	#resp.headers['Link'] = 'http://luisrei.com'
+    resp = Response(js, status=200, mimetype='application/json')
+    #resp.headers['Link'] = 'http://luisrei.com'
 	print js
         if(bool(data)):
             if('Tuna' in data['OfferName']):
-		msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+work[0]+','+work[1]+'/'+foodlion[0]+','+foodlion[1]
+        		start_lat=str(work[0])
+        		start_longi=str(work[1])
+        		end_lat=str(foodlion[0])
+        		end_longi=str(foodlion[1])
+                msg=msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2enVcQV'
+
             elif('Gatorade' in data['OfferName']):
-	    	msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+gym[0]+','+gym[1]+'/'+convenient[0]+','+convenient[1]
-	    send_sms(msg)
+	    	    start_lat=str(gym[0])
+                start_longi=str(gym[1])
+                end_lat=str(convenient[0])
+                end_longi=str(convenient[1])
+                msg=msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2dSGUeR'
+
+	    #https://www.google.com/maps/dir/35.874435,-78.842677/35.775295,-78.685293 == http://bit.ly/2enVcQV
+        #https://www.google.com/maps/dir/35.783728,-78.672094/35.775295,-78.685293 == http://bit.ly/2dSGUeR
+        send_sms(msg)
 	return resp
 
 if __name__ == '__main__':
