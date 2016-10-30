@@ -8,18 +8,22 @@ from jinja2 import Environment, FileSystemLoader
 app = Flask(__name__)
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+home=[35.775295, -78.685293]
+work=[35.874435, -78.842677]
+gym=[35.783728, -78.672094 ]
+foodlion=[35.786623, -78.692838 ]
+convenient=[35.779573, -78.675055]
+
 def send_sms(msg):
     account_sid="AC385c4d2e1c41dd5d2848c30cc781589c"
     auth_token="2e30b61a088f9eb07752d7419db5a554"
     client = TwilioRestClient(account_sid, auth_token)
     message = client.messages.create(to="+19199317556",from_="+1919670-0903",body=msg)
 
+
+
+
 def get_offers(user,lat,longi,time1):
-    home=[35.775295, -78.685293]
-    work=[35.874435, -78.842677]
-    gym=[35.783728, -78.672094 ]
-    foodlion=[35.786623, -78.692838 ]
-    convenient=[35.779573, -78.675055]
     time_hr=int(datetime.datetime.fromtimestamp(int(time1)).strftime('%H'))
     print time_hr
 
@@ -42,7 +46,7 @@ def get_offers(user,lat,longi,time1):
     return mydict
 
 
-@app.route('/'):
+@app.route('/')
 def func_root():
 	j2_env = Environment(loader=FileSystemLoader(THIS_DIR),trim_blocks=True)
 	return j2_env.get_template('maps.html').render(title="Context based Advertising")
@@ -57,9 +61,12 @@ def func_main(user,lat,longi,time1):
     	resp = Response(js, status=200, mimetype='application/json')
     	#resp.headers['Link'] = 'http://luisrei.com'
 	print js
-        if(resp):
-            msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']
-            send_sms(msg)
+        if(bool(data)):
+            if('Tuna' in data['OfferName']):
+		msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+work[0]+','+work[1]+'/'+foodlion[0]+','+foodlion[1]
+            elif('Gatorade' in data['OfferName']):
+	    	msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'https://www.google.com/maps/dir/'+gym[0]+','+gym[1]+'/'+convenient[0]+','+convenient[1]
+	    send_sms(msg)
 	return resp
 
 if __name__ == '__main__':
