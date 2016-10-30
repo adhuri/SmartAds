@@ -64,17 +64,22 @@
         var onTimeChangeHandler = function() {
           var someDate = new Date(document.getElementById('time').value);
           someDate = someDate.getTime();
-          var loc = document.getElementById('start').value;
+          var sloc = document.getElementById('start').value;
+          var dloc = document.getElementById('end').value;
           //console.log(loc);
-          var res = loc.split(",")
-          var lat = res[0];
-          var long = res[1];
-          if(someDate != null && lat != null && long != null && typeof lat != "undefined" && typeof long != "undefined" && !isNaN(someDate)) {
-            console.log(lat +" "+long);
+          var sres = sloc.split(",")
+          var dres = dloc.split(",")
+          var slat = sres[0];
+          var slong = sres[1];
+          var dlat = dres[0];
+          var dlong = dress[1];
+          if(someDate != null && slat != null && slong != null && dlat != null && dlong != null && typeof slat != "undefined" && typeof slong != "undefined" && typeof dlat != "undefined" && typeof dlong != "undefined" &&!isNaN(someDate)) {
+            console.log(slat +" "+slong);
+            console.log(dlat +" "+dlong);
             someDate = (someDate / 1000);
             console.log(someDate);
             var http = new XMLHttpRequest();
-            var url = "http://ec2-35-162-68-34.us-west-2.compute.amazonaws.com:5000/aniket/"+lat+"/"+long+"/"+someDate;
+            var url = "http://ec2-35-162-68-34.us-west-2.compute.amazonaws.com:5000/aniket/"+slat+"/"+slong+"/"+dlat+"/"+dlong+"/"+someDate;
             // var params = "lorem=ipsum&name=binny";
             http.open("POST", url, true);
             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
