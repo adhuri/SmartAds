@@ -14,15 +14,15 @@ def get_offers(user,lat,longi,time1):
     print time_hr
 
     mydict={}
-    if(((int(home[0])*1000)==int(lat)*1000) and ((int(home[1])*1000)==int(longi)*1000)):
-        if(((int(work[0])*1000)==int(lat)*1000) and ((int(work[1])*1000)==int(longi)*1000)):
+    if(((float(home[0])*1000)==int(float(lat)*1000))) and ((float(home[1])*1000)==float(longi)*1000)):
+        if(((float(work[0])*1000)==float(lat)*1000) and ((float(work[1])*1000)==float(longi)*1000)):
             if(time_hr==8):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
            	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
-        elif(((int(gym[0])*1000)==int(lat)*1000) and ((int(gym[1])*1000)==int(longi)*1000)):
+        elif(((float(gym[0])*1000)==float(lat)*1000) and ((float(gym[1])*1000)==float(longi)*1000)):
             if(time_hr==5):
                 mydict['name']=user
             	mydict['OfferName']="Gatorade Offer!"
