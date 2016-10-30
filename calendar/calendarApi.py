@@ -60,9 +60,7 @@ def getEventsForUser():
     service = discovery.build('calendar', 'v3', http=http)
 
     now = datetime.datetime.utcnow().isoformat() + 'Z'
-    #print(now)
-    #print(datetime.datetime.now())
-    #print('Getting the upcoming 20 events')
+
     eventsResult = service.events().list(calendarId='primary', timeMin=now, maxResults=20, singleEvents=True, orderBy='startTime').execute()
     events = eventsResult.get('items', [])
     eventList = []
@@ -77,7 +75,7 @@ def getEventsForUser():
             geolocator = Nominatim()
             coordinates = geolocator.geocode(location)
             geocoordinates = [coordinates.latitude, coordinates.longitude]
-
+            print(geocoordinates) 
         tagList = []
 
         description = None
@@ -90,7 +88,6 @@ def getEventsForUser():
 
         eventObj = Event(start, summary, description, geocoordinates, list(set(tagList)))
         eventList.append(eventObj)
-        #event.printContents()
     return eventList
 
 def main():
