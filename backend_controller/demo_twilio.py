@@ -50,9 +50,9 @@ def func_main(user,lat,longi,time1):
     	resp = Response(js, status=200, mimetype='application/json')
     	#resp.headers['Link'] = 'http://luisrei.com'
 	print js
-#        if(resp):
-#            msg='twilio,'+data['OfferName']+','+data['OfferDetails']
-#            send_sms(msg)
+        if(resp):
+            msg='twilio,'+data['OfferName']+','+data['OfferDetails']
+            send_sms(msg)
 	return resp
 
 if __name__ == '__main__':
