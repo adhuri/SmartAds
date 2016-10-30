@@ -2,7 +2,16 @@ import os
 from flask import Response,Flask, render_template, request, url_for,jsonify
 import json
 import datetime
+
+from twilio.rest import TwilioRestClient
+
 app = Flask(__name__)
+
+def send_sms(msg):
+    sid="AC385c4d2e1c41dd5d2848c30cc781589c
+    auth_token="2e30b61a088f9eb07752d7419db5a554"
+    client = TwilioRestClient(account_sid, auth_token)
+    message = client.messages.create(to="+19199397556", from_="+19842029501",body=msg)
 
 def get_offers(user,lat,longi,time1):
     home=[35.775295, -78.685293]
@@ -16,14 +25,14 @@ def get_offers(user,lat,longi,time1):
     mydict={}
     print "Given home:",((int(float(home[0])*1000)),int(float(lat)*1000))
     if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
-            if(time_hr>=7 and time_hr<=11):
+            if(time_hr>=17 and time_hr<=20):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
            	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
     elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
-            if(time_hr>=15 and time_hr<=19):
+            if((time_hr>=7 and time_hr<=10) or (time_hr>=17 and time_hr<=21)):
                 mydict['name']=user
             	mydict['OfferName']="Gatorade Offer!"
                 mydict['OfferDetails']="Buy one get one Gatorade Free at 6 Twelve Convenient Store"
@@ -41,6 +50,9 @@ def func_main(user,lat,longi,time1):
     	resp = Response(js, status=200, mimetype='application/json')
     	#resp.headers['Link'] = 'http://luisrei.com'
 	print js
+    if(resp):
+        msg='twilio,'+data['OfferName']+','+data['OfferDetails']
+        send_sms(msg)
 	return resp
 
 if __name__ == '__main__':
