@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 class Tagger:
-	TAGS_MAP = {'Gym': ['Health','Energy'], 'Trek': ['Food', 'Snacks'], 'Dinner': ['Restaurant']}
+	TAGS_MAP = {'Workout': ['Health','Energy'], 'Trek': ['Food', 'Snacks'], 'Dinner': ['Restaurant']}
 
 	@staticmethod
 	def getTags(stringToTag):

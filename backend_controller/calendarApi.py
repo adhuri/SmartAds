@@ -9,10 +9,11 @@ from Tagger import *
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-from geopy.geocoders import Nominatim
+from geopy.geocoders import *
 
 import datetime
 
+    
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -24,7 +25,6 @@ except ImportError:
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
-
 
 def get_credentials():
     home_dir = os.path.expanduser('~')
@@ -53,7 +53,6 @@ def checkIfKeyPresent(event, key):
     else:
         return True
 
-
 def getEventsForUser():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
@@ -61,7 +60,7 @@ def getEventsForUser():
 
     now = datetime.datetime.utcnow().isoformat() + 'Z'
 
-    eventsResult = service.events().list(calendarId='primary', timeMin=now, maxResults=20, singleEvents=True, orderBy='startTime').execute()
+    eventsResult = service.events().list(calendarId='primary', timeMin=now, maxResults=1, singleEvents=True, orderBy='startTime').execute()
     events = eventsResult.get('items', [])
     eventList = []
     if not events:
@@ -72,10 +71,12 @@ def getEventsForUser():
         geocoordinates = None
         if(checkIfKeyPresent(event, 'location')):
             location = event['location'];
-            geolocator = Nominatim()
+            geolocator = ArcGIS()
             coordinates = geolocator.geocode(location)
             geocoordinates = [coordinates.latitude, coordinates.longitude]
-            print(geocoordinates) 
+            #print(geocoordinates)
+            addr = geolocator.geocode("2109 Avent Ferry Rd Raleigh NC")
+            print(addr.latitude, addr.longitude)
         tagList = []
 
         description = None

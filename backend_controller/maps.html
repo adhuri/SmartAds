@@ -38,14 +38,14 @@
     <select id="start">
       <option value="35.777817,-78.679211">Home</option>
       <option value="35.874435,-78.842677">Office</option>
-      <option value="35.783728,-78.672094">Gym</option>
+      <option value="35.7831831036184,-78.67090837432124">Gym</option>
       <option value="35.789457,-78.664266">Friend's Place</option>
     </select>
     <b>End: </b>
     <select id="end">
       <option value="35.777817,-78.679211">Home</option>
       <option value="35.874435,-78.842677">Office</option>
-      <option value="35.783728,-78.672094">Gym</option>
+      <option value="35.7831831036184,-78.67090837432124">Gym</option>
       <option value="35.789457,-78.664266">Friend's Place</option>
     </select>
     </div>
@@ -71,7 +71,7 @@
           var long = res[1];
           if(someDate != null && lat != null && long != null && typeof lat != "undefined" && typeof long != "undefined" && !isNaN(someDate)) {
             console.log(lat +" "+long);
-            someDate = someDate / 1000;
+            someDate = (someDate / 1000);
             console.log(someDate);
             var http = new XMLHttpRequest();
             var url = "http://ec2-35-162-68-34.us-west-2.compute.amazonaws.com:5000/aniket/"+lat+"/"+long+"/"+someDate;

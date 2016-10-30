@@ -16,7 +16,7 @@ def send_sms(msg):
 def get_offers(user,lat,longi,time1):
     home=[35.775295, -78.685293]
     work=[35.874435, -78.842677]
-    gym=[35.783728, -78.672094 ]
+    gym=[35.7831831036184, -78.67090837432124]
     foodlion=[35.786623, -78.692838 ]
     convenient=[35.779573, -78.675055]
     time_hr=int(datetime.datetime.fromtimestamp(int(time1)).strftime('%H'))
@@ -34,8 +34,9 @@ def get_offers(user,lat,longi,time1):
     elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
             if((time_hr>=7 and time_hr<=10) or (time_hr>=17 and time_hr<=21)):
                 mydict['name']=user
-            	mydict['OfferName']="Gatorade Offer!"
-                mydict['OfferDetails']="Buy one get one Gatorade Free at 6 Twelve Convenient Store"
+                offerList = getCalendarBasedOffer();
+            	mydict['OfferName']= offerList[0].name
+                mydict['OfferDetails']=offerList[0].description
             	mydict['lat']= str(convenient[0])
             	mydict['longi'] = str(convenient[1])
     return mydict
