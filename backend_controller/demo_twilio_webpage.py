@@ -33,7 +33,7 @@ def get_offers(user,lat,longi,time1):
             if(time_hr>=16 and time_hr<=20):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
-           	    mydict['OfferDetails']="50% off at Foodlion"
+          	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
     elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
@@ -58,27 +58,28 @@ def func_main(user,lat,longi,time1):
 	data=get_offers(user,lat,longi,time1)
 
 	js = json.dumps(data)
-    resp = Response(js, status=200, mimetype='application/json')
-    #resp.headers['Link'] = 'http://luisrei.com'
+	resp = Response(js, status=200, mimetype='application/json')
+        #resp.headers['Link'] = 'http://luisrei.com'
 	print js
+	msg=''
         if(bool(data)):
             if('Tuna' in data['OfferName']):
-        		start_lat=str(work[0])
-        		start_longi=str(work[1])
-        		end_lat=str(foodlion[0])
-        		end_longi=str(foodlion[1])
-                msg=msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2enVcQV'
+        	    start_lat=str(work[0])
+        	    start_longi=str(work[1])
+             	    end_lat=str(foodlion[0])
+        	    end_longi=str(foodlion[1])
+                    msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2enVcQV'
 
             elif('Gatorade' in data['OfferName']):
 	    	    start_lat=str(gym[0])
-                start_longi=str(gym[1])
-                end_lat=str(convenient[0])
-                end_longi=str(convenient[1])
-                msg=msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2dSGUeR'
+                    start_longi=str(gym[1])
+                    end_lat=str(convenient[0])
+                    end_longi=str(convenient[1])
+                    msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']+'\n'+'http://bit.ly/2dSGUeR'
 
 	    #https://www.google.com/maps/dir/35.874435,-78.842677/35.775295,-78.685293 == http://bit.ly/2enVcQV
-        #https://www.google.com/maps/dir/35.783728,-78.672094/35.775295,-78.685293 == http://bit.ly/2dSGUeR
-        send_sms(msg)
+            #https://www.google.com/maps/dir/35.783728,-78.672094/35.775295,-78.685293 == http://bit.ly/2dSGUeR
+            send_sms(msg)
 	return resp
 
 if __name__ == '__main__':
