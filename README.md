@@ -3,12 +3,13 @@ Ok
 
 ### OCR
 #### need to install following for ocr
-scikit-image
-imutils
-pytesser
-tesseract - not a python lib
-opencv
-numpy
+
++ scikit-image
++ imutils
++ pytesser
++ tesseract - not a python lib
++ opencv
++ numpy
 
 #### to run
 This format for now.
@@ -16,5 +17,6 @@ This format for now.
 
 See `ocr_runner.py` for demo. 
 
-Use `from scan import ocr_image`, then call `ocr_image(img_file_path)`
-
+Use `from scan import ocr_image`, 
+then call `ocr_image(img_file_path)`
+call this for tags: `get_item_tags(parsed_text)`
