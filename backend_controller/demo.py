@@ -14,22 +14,21 @@ def get_offers(user,lat,longi,time1):
     print time_hr
 
     mydict={}
-    if(((int(float(home[0])*1000))==int(float(lat)*1000)) and (int(float(home[1])*1000)==int(float(longi)*1000))):
-        if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
-            if(time_hr==8):
+    print "Given home:",((int(float(home[0])*1000)),int(float(lat)*1000))
+    if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
+            if(time_hr>=7 and time_hr<=11):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
            	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
-        elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
-            if(time_hr==5):
+    elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
+            if(time_hr>=15 and time_hr<=19):
                 mydict['name']=user
             	mydict['OfferName']="Gatorade Offer!"
                 mydict['OfferDetails']="Buy one get one Gatorade Free at 6 Twelve Convenient Store"
             	mydict['lat']= str(convenient[0])
             	mydict['longi'] = str(convenient[1])
-
     return mydict
 
 
@@ -37,9 +36,11 @@ def get_offers(user,lat,longi,time1):
 @app.route('/<user>/<lat>/<longi>/<time1>',methods=['POST'])
 def func_main(user,lat,longi,time1):
 	data=get_offers(user,lat,longi,time1)
+
 	js = json.dumps(data)
     	resp = Response(js, status=200, mimetype='application/json')
     	#resp.headers['Link'] = 'http://luisrei.com'
+	print js
 	return resp
 
 if __name__ == '__main__':
