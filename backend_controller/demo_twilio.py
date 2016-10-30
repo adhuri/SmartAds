@@ -11,7 +11,7 @@ def send_sms(msg):
     account_sid="AC385c4d2e1c41dd5d2848c30cc781589c"
     auth_token="2e30b61a088f9eb07752d7419db5a554"
     client = TwilioRestClient(account_sid, auth_token)
-    message = client.messages.create(to="+19199397556",from_="+19842029501",body=msg)
+    message = client.messages.create(to="+19199317556",from_="+1919670-0903",body=msg)
 
 def get_offers(user,lat,longi,time1):
     home=[35.775295, -78.685293]
@@ -51,7 +51,7 @@ def func_main(user,lat,longi,time1):
     	#resp.headers['Link'] = 'http://luisrei.com'
 	print js
         if(resp):
-            msg='twilio,'+data['OfferName']+','+data['OfferDetails']
+            msg='\n'+'Hi '+user+'\n'+data['OfferName']+'\n'+data['OfferDetails']
             send_sms(msg)
 	return resp
 
