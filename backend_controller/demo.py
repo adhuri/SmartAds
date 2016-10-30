@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def get_offers(user,lat,longi,time1):
     home=[35.775295, -78.685293]
-    work=[35.874435, -78.842677
+    work=[35.874435, -78.842677]
     gym=[35.783728, -78.672094 ]
     foodlion=[35.786623, -78.692838 ]
     convenient=[35.779573, -78.675055]
@@ -14,19 +14,19 @@ def get_offers(user,lat,longi,time1):
     print time_hr
 
     mydict={}
-    if(int(home[0])*1000)==int(lat*1000) and int(home[1])*1000)==int(longi*1000)):
-        if(int(work[0])*1000)==int(lat*1000) and int(work[1])*1000)==int(longi*1000)):
+    if(((int(home[0])*1000)==int(lat)*1000) and ((int(home[1])*1000)==int(longi)*1000)):
+        if(((int(work[0])*1000)==int(lat)*1000) and ((int(work[1])*1000)==int(longi)*1000)):
             if(time_hr==8):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
-           	    mydict['OfferDetails']="50% off at Foodlion"
+           	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
-        elif(int(gym[0])*1000)==int(lat*1000) and int(gym[1])*1000)==int(longi*1000)):
+        elif(((int(gym[0])*1000)==int(lat)*1000) and ((int(gym[1])*1000)==int(longi)*1000)):
             if(time_hr==5):
                 mydict['name']=user
             	mydict['OfferName']="Gatorade Offer!"
-           	    mydict['OfferDetails']="Buy one get one Gatorade Free at 6 Twelve Convenient Store"
+                mydict['OfferDetails']="Buy one get one Gatorade Free at 6 Twelve Convenient Store"
             	mydict['lat']= str(convenient[0])
             	mydict['longi'] = str(convenient[1])
 
