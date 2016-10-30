@@ -8,9 +8,9 @@ from jinja2 import Environment, FileSystemLoader
 app = Flask(__name__)
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-home=[35.775295, -78.685293]
+home=[35.777817, -78.679211]
 work=[35.874435, -78.842677]
-gym=[35.783728, -78.672094 ]
+gym=[35.7831831036184, -78.67090837432124]
 foodlion=[35.786623, -78.692838 ]
 convenient=[35.779573, -78.675055]
 
@@ -23,20 +23,21 @@ def send_sms(msg):
 
 
 
-def get_offers(user,lat,longi,time1):
+def get_offers(user,lat,longi,end_lat,end_longi,time1):
     time_hr=int(datetime.datetime.fromtimestamp(int(time1)).strftime('%H'))
     print time_hr
 
     mydict={}
     print "Given home:",((int(float(home[0])*1000)),int(float(lat)*1000))
-    if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
+    if(((int(float(home[0])*1000))==int(float(end_lat)*1000)) and (int(float(home[1])*1000)==int(float(end_longi)*1000))):
+        if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
             if(time_hr>=16 and time_hr<=20):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
           	mydict['OfferDetails']="50% off at Foodlion"
             	mydict['lat']= str(foodlion[0])
             	mydict['longi'] = str(foodlion[1])
-    elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
+        elif(((int(float(gym[0])*1000))==int(float(lat)*1000)) and (int(float(gym[1])*1000)==int(float(longi)*1000))):
             if((time_hr>=7 and time_hr<=10) or (time_hr>=17 and time_hr<=21)):
                 mydict['name']=user
             	mydict['OfferName']="Gatorade Offer!"
@@ -53,9 +54,9 @@ def func_root():
 
 
 #Main function that handles the post request
-@app.route('/<user>/<lat>/<longi>/<time1>',methods=['POST'])
-def func_main(user,lat,longi,time1):
-	data=get_offers(user,lat,longi,time1)
+@app.route('/<user>/<lat>/<longi>/<end_lat>/<end_longi>/<time1>',methods=['POST'])
+def func_main(user,lat,longi,end_lat,end_longi,time1):
+	data=get_offers(user,lat,longi,end_lat,end_longi,time1)
 
 	js = json.dumps(data)
 	resp = Response(js, status=200, mimetype='application/json')
