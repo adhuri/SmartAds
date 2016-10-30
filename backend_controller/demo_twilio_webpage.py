@@ -30,7 +30,7 @@ def get_offers(user,lat,longi,time1):
     mydict={}
     print "Given home:",((int(float(home[0])*1000)),int(float(lat)*1000))
     if(((int(float(work[0])*1000))==int(float(lat)*1000)) and (int(float(work[1])*1000)==int(float(longi)*1000))):
-            if(time_hr>=17 and time_hr<=20):
+            if(time_hr>=16 and time_hr<=20):
                 mydict['name']=user
             	mydict['OfferName']="Tuna Offer!"
            	    mydict['OfferDetails']="50% off at Foodlion"
